@@ -1,0 +1,145 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node * next;
+};
+typedef struct node Node;
+
+Node* create_node(int num)
+{
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=num;
+    newnode->next=NULL;
+    return newnode;
+}
+//insert at the begin
+Node* insert_at_begin(int num,Node* *ptr)
+{
+    Node* newnode=create_node(num);
+    if(*ptr==NULL) 
+    {
+        *ptr=newnode;
+    }
+    else
+    {
+        newnode->next=*ptr;
+        *ptr=newnode;
+    }
+}
+
+//insert at end
+Node* insert_at_end(int num,Node* *ptr)
+{
+    Node* tptr;
+    Node* newnode=create_node(num);
+    if(*ptr==NULL)
+    {
+        *ptr=newnode;
+    }
+    else
+    {
+        for(tptr=*ptr;tptr->next!=NULL;tptr=tptr->next);
+        tptr->next=newnode;
+    }
+}
+
+//insert in sort
+Node* insert_at_sort(int num,Node* *ptr)
+{
+    Node* tptr;
+    Node* shadow=NULL;
+    Node* newnode=create_node(num);
+    if(*ptr==NULL)
+    {
+        *ptr=newnode;
+    }
+    else
+    {
+        for(tptr=*ptr;tptr!=NULL;shadow=tptr,tptr=tptr->next)
+        {
+            if(tptr->data > newnode->data) break;
+        }
+        if(tptr==*ptr)
+        {
+            *ptr=newnode;
+            newnode->next=tptr;
+        }
+        else
+        {
+            shadow->next=newnode;
+            newnode->next=tptr;
+        }
+    }
+}
+
+//delete at begin
+void del_at_begin(int num,Node* *ptr)
+{
+    if(*ptr==NULL) printf("Invalid Linked List is empty");
+    else
+    {
+        *ptr=(*ptr)->next;
+    }
+}
+//delete at end
+void del_at_end(int num,Node* *ptr)
+{
+    Node* prev=NULL;
+    Node* tptr;
+    if(*ptr==NULL) printf("Invalid Linked List is empty");
+    else
+    {
+        for(tptr=*ptr;tptr->next!=NULL;prev=tptr,tptr=tptr->next);
+        prev->next=NULL;
+    }
+}
+//search
+void search_of_ele(int num,Node* *ptr,int search_val)
+{
+    Node* tptr;
+    if(*ptr==NULL) printf("Empty");
+    else
+    {
+        for(tptr=*ptr;tptr!=NULL;tptr=tptr->next)
+        {
+            if(tptr->data == search_val)
+            {
+                printf("Found");
+                break;
+            }
+        }
+    }
+    if(tptr==NULL) printf("Not found");
+}
+//display
+void display(int num,Node* *ptr)
+{
+    Node* tptr;
+    for(tptr=*ptr;tptr!=NULL;tptr=tptr->next)
+    {
+        printf("%d ",tptr->data);
+    }
+}
+int main()
+{
+    int num;
+    Node* head=NULL;
+    while(1)
+    {
+        scanf("%d",&num);
+        if(num==-1) break;
+        //insert_at_begin(num,&head);
+        insert_at_end(num,&head);
+        //insert_at_sort(num,&head);
+    }
+    //del_at_begin(num,&head);
+    //del_at_end(num,&head);
+    int search_val;
+    scanf("%d",&search_val);
+    search_of_ele(num,&head,search_val);
+    //display(num,&head);
+    return 0;
+}
