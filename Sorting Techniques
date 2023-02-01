@@ -1,0 +1,270 @@
+Selection Sort Implementation - JAVA
+
+import java.util.*;
+
+class Sort {
+  public static void SelectionSort(int[] arr) {
+    for (int i = 0; i < arr.length; i = i + 1) {
+      int minIndex = i;
+      for (int j = i + 1; j < arr.length; j = j + 1) {
+        if (arr[j] < arr[minIndex]) {
+          minIndex = j;
+        }
+      }
+      int temp = arr[i];
+      arr[i] = arr[minIndex];
+      arr[minIndex] = temp;
+    }
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    int[] arr = { 10, 5, 26, 3, 15, 22 };
+    Sort.SelectionSort(arr);
+    System.out.println(Arrays.toString(arr));
+  }
+}
+
+
+
+BubbleSort Implementation - JAVA
+
+
+
+
+import java.util.*;
+
+class Sort {
+  public static void bubbleSort(int[] arr) {
+    for (int i = 1; i < arr.length; i++) {
+      boolean swapped = false;
+      for (int j = 0; j < arr.length - i; j++) {
+        if (arr[j] > arr[j + 1]) {
+          swapped = true;
+          int temp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = temp;
+        }
+      }
+
+      if (!swapped) {
+        break;
+      }
+    }
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    int[] arr = { 10, 5, 26, 3, 15, 22 };
+    Sort.bubbleSort(arr);
+    System.out.println(Arrays.toString(arr));
+  }
+}
+
+
+
+
+
+InsertionSort Implementation - JAVA
+
+
+
+
+import java.util.*;
+
+class Sort {
+  public static void insertionSort(int[] arr) {
+    for (int i = 1; i < arr.length; i = i + 1) {
+      for (int j = i; j > 0; j = j - 1) {
+        if (arr[j] < arr[j - 1]) {
+          int temp = arr[j];
+          arr[j] = arr[j - 1];
+          arr[j - 1] = temp;
+        }
+
+        else
+          break;
+      }
+
+    }
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    int[] arr = { 5, 8, 2, 4, 3, 9 };
+    Sort.insertionSort(arr);
+    System.out.println(Arrays.toString(arr));
+  }
+}
+
+
+
+
+
+
+MergeSort Implementation - Java 
+
+
+
+
+
+
+
+import java.util.Arrays;
+
+class Sorting {
+  // public static int[] mergeSort(int[] arr)
+  // {
+  // if(arr.length==1)
+  // return arr;
+
+  // int mid = arr.length/2;
+
+  // int[] left = mergeSort(Arrays.copyOfRange(arr,0,mid));
+  // int[] right = mergeSort(Arrays.copyOfRange(arr,mid,arr.length));
+
+  // return merge(left,right);
+  // }
+
+  // public static int[] merge(int[] first, int[] second)
+  // {
+  // int[] joined = new int[first.length+second.length];
+  // int i=0,j=0,k=0;
+
+  // while(i<first.length && j<second.length)
+  // {
+  // if(first[i]<second[j])
+  // {
+  // joined[k++] = first[i++];
+  // }
+  // else
+  // joined[k++] = second[j++];
+  // }
+
+  // while(i<first.length)
+  // joined[k++] = first[i++];
+  // while(j<second.length)
+  // joined[k++] = second[j++];
+
+  // return joined;
+
+  // }
+
+  public static void mergeSortInPlace(int[] arr, int start, int end) {
+    if (end - start == 1)
+      return;
+
+    int mid = (start + end) / 2;
+
+    mergeSortInPlace(arr, start, mid);
+    mergeSortInPlace(arr, mid, end);
+
+    mergeInPlace(arr, start, mid, end);
+  }
+
+  public static void mergeInPlace(int[] arr, int start, int mid, int end) {
+    int[] joined = new int[end - start];
+    int i = start, j = mid, k = 0;
+
+    while (i < mid && j < end) {
+      if (arr[i] < arr[j]) {
+        joined[k++] = arr[i++];
+      } else
+        joined[k++] = arr[j++];
+    }
+
+    while (i < mid)
+      joined[k++] = arr[i++];
+    while (j < end)
+      joined[k++] = arr[j++];
+
+    for (k = 0; k < joined.length; k++)
+      arr[start + k] = joined[k];
+
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    int[] inp = { 9, 4, 7, 1, 6, 2, 8, 4 };
+    Sorting.mergeSortInPlace(inp, 0, inp.length);
+    System.out.println(Arrays.toString(inp));
+  }
+}
+
+
+
+
+
+
+QuickSort Implementation - JAVA
+
+
+
+
+
+
+
+import java.util.Arrays;
+
+class Sorting {
+  public static void quickSort(int[] arr, int low, int high)
+  // going to work part of the array for - boundary purpose
+  {
+    if (low >= high)
+      return;
+    int start = low;
+    int end = high;
+    int mid = (start + end) / 2;
+    int pivot = arr[mid];
+
+    while (start <= end) {
+      while (arr[start] < pivot)
+        start++;
+      while (arr[end] > pivot)
+        end--;
+
+      if (start <= end) {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        start++;
+        end--;
+      }
+    }
+
+    quickSort(arr, low, end);
+    quickSort(arr, start, high);
+  }
+
+}
+
+public class Main {
+  public static void main(String[] args) {
+    int[] inp = { 5, 8, 4, 3, 7, 6, 2, 9, 5 };
+    Arrays.sort(inp); // Inbuilt Method for sorting in JAVA
+    Sorting.quickSort(inp, 0, inp.length - 1);
+    System.out.println(Arrays.toString(inp));
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
